@@ -1,0 +1,10 @@
+import math
+a = []
+min == 0
+max == 0
+for i in range(0,15+1,1):
+    a.append(i)
+print(min(a))
+print(max(a))
+print(a)
+

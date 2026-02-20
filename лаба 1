@@ -1,0 +1,31 @@
+import Parser
+from bs4 import BeautifulSoup
+import requests
+print("Лаба 1 и 2")
+print("Варинат - 9")
+print("Выполнил: Киселев Игорь")
+print("Группа ИВТ-253")
+films = []
+def parse():
+    url = 'https://ru.wikipedia.org/wiki/250_лучших_фильмов_по_версии_IMDb'
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+    }
+    page = requests.get(url,headers=headers)
+    print(page.status_code)
+    soup = BeautifulSoup(page.text, "html.parser")
+    table = soup.find('table')
+    tbody = table.find('tbody')
+    trs = tbody.find_all('tr')
+    for tr in trs:
+        if tr.find('th'):
+            continue
+        tds = tr.find_all('td')
+        reating = {
+            'место':tds[0].text,
+            'название':tds[1].text,
+            'год выхода':tds[2].text
+        }
+        films.append(reating)
+parse()
+print(films)
